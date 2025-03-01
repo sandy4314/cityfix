@@ -61,6 +61,8 @@ const Dashboard = () => {
                 <p className="complaint-card-status"><span className="complaint-card-status-heading">Status</span>:{complaint.status}</p>
                
                 <p className="complaint-card-priority"><span className="complaint-card-priority-heading">Priority</span>:{complaint.priority}</p>
+                
+                <p className="complaint-card-priority"><span className="complaint-card-priority-heading">Address</span>:{complaint.address}</p>
               </div>
             </div>
           ))

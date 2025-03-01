@@ -8,7 +8,7 @@ const User = require("../models/User"); // Ensure you have a User model
 
 // User Signup
 router.post("/signup", async (req, res) => {
-    const { username, email, password, mobileNumber, address } = req.body;
+    const { username, email, password, mobileNumber } = req.body;
   
     try {
       let user = await User.findOne({ username });
@@ -32,7 +32,7 @@ router.post("/signup", async (req, res) => {
         email,  // Storing email
         password: hashedPassword,
         mobileNumber,
-        address,
+       
       });
   
       await user.save();
@@ -75,7 +75,7 @@ router.post("/login", async (req, res) => {
         email: user.email,  // Include email in JWT
         role: "user",
         mobileNumber: user.mobileNumber, // Include mobile number
-        address: user.address, // Include address
+        
       },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
@@ -86,7 +86,7 @@ router.post("/login", async (req, res) => {
       role: "user", 
       email: user.email,  // Sending email in response
       mobileNumber: user.mobileNumber, 
-      address: user.address 
+      
     });
   } catch (err) {
     res.status(500).json({ message: "Server error" });

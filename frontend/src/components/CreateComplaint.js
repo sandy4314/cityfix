@@ -7,6 +7,7 @@ const CreateComplaint = ({ token }) => {
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("low");
   const [image, setImage] = useState(null); // New state for image
+  const [address, setAddress] = useState(null);
   
   const email = localStorage.getItem("email"); // Retrieve email
 
@@ -26,7 +27,7 @@ const CreateComplaint = ({ token }) => {
     formData.append("issueType", issueType);
     formData.append("description", description);
     formData.append("priority", priority);
-  
+    formData.append("address",address)
     if (image) formData.append("image", image); // Append image if selected
     formData.append("email", email); // Send email
   
@@ -44,6 +45,7 @@ const CreateComplaint = ({ token }) => {
       setIssueType("");
       setDescription("");
       setPriority("low");
+      setAddress("")
       setImage(null); // Clear the selected image
     } catch (err) {
       console.error("Error submitting complaint:", err.response?.data || err.message);
@@ -91,7 +93,16 @@ const CreateComplaint = ({ token }) => {
             <option value="high">High</option>
           </select>
         </div>
-
+        <div className="input-container">
+          <label htmlFor="address">Address</label>
+          <textarea
+            id="address"
+            placeholder="Enter Address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            required
+          />
+        </div>
         <div className="input-container">
           <label htmlFor="image">Upload Image (optional)</label>
           <input

@@ -4,7 +4,9 @@ import "./AdminDashboard.css";  // Importing the CSS file
 
 const AdminDashboard = () => {
   const [complaints, setComplaints] = useState([]);
+  const [filteredComplaints, setFilteredComplaints] = useState([]);
   const [error, setError] = useState(null);
+  const [filterStatus, setFilterStatus] = useState("all");  // New state to track filter option
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -19,6 +21,7 @@ const AdminDashboard = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         setComplaints(response.data);
+        setFilteredComplaints(response.data); // Initialize filtered complaints with all complaints
       } catch (err) {
         console.error("❌ Error fetching complaints:", err);
         setError("Failed to fetch complaints. Please try again later.");
@@ -47,15 +50,62 @@ const AdminDashboard = () => {
     }
   };
 
+  // Filter complaints based on selected status
+  const handleFilterChange = (status) => {
+    setFilterStatus(status);
+
+    if (status === "all") {
+      setFilteredComplaints(complaints); // Show all complaints
+    } else {
+      setFilteredComplaints(complaints.filter((complaint) => complaint.status === status)); // Filter by status
+    }
+  };
+
   return (
     <div className="admin-dashboard-container">
       <h2 className="admin-dashboard-title">Admin Dashboard</h2>
       {error && <p className="admin-error-message">{error}</p>}
 
+      {/* Filter Checkboxes */}
+      <div className="filter-container">
+        <label>
+          <input
+            type="checkbox"
+            checked={filterStatus === "all"}
+            onChange={() => handleFilterChange("all")}
+          />
+          All
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={filterStatus === "Accepted"}
+            onChange={() => handleFilterChange("Accepted")}
+          />
+          Accepted
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={filterStatus === "Pending"}
+            onChange={() => handleFilterChange("Pending")}
+          />
+          Pending
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={filterStatus === "Completed"}
+            onChange={() => handleFilterChange("Completed")}
+          />
+          Completed
+        </label>
+      </div>
+
       {/* Card Layout for Complaints */}
       <div className="admin-cards-container">
-        {complaints.length > 0 ? (
-          complaints.map((complaint, index) => (
+        {filteredComplaints.length > 0 ? (
+          filteredComplaints.map((complaint) => (
             <div key={complaint._id} className="admin-complaint-card">
               <div className="complaint-image">
                 {complaint.imagePath ? (
@@ -72,11 +122,11 @@ const AdminDashboard = () => {
               <div className="complaint-details">
                 <h3 className="complaint-username">{complaint.userId?.username || "N/A"}</h3>
                 <p className="complaint-info"><strong>Mobile:</strong> {complaint.userId?.mobileNumber || "N/A"}</p>
-                <p className="complaint-info"><strong>Address:</strong> {complaint.userId?.address || "N/A"}</p>
                 <p className="complaint-info"><strong>Issue:</strong> {complaint.issueType}</p>
                 <p className="complaint-info"><strong>Description:</strong> {complaint.description}</p>
                 <p className="complaint-info"><strong>Status:</strong> {complaint.status}</p>
                 <p className="complaint-info"><strong>Priority:</strong> {complaint.priority}</p>
+                <p className="complaint-info"><strong>Address:</strong> {complaint.address}</p>
               </div>
 
               {/* Action Buttons */}

@@ -16,7 +16,7 @@
   .admin-cards-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start; /* Aligns the cards from the left */
     gap: 20px;
   }
   
@@ -32,6 +32,25 @@
     align-items: center;
     overflow: hidden;
     height: auto; /* Allow dynamic height based on content */
+  }
+  
+  /* Centering cards on smaller screens */
+  @media (max-width: 768px) {
+    .admin-cards-container {
+      justify-content: flex-start; /* Ensure cards start from the left */
+    }
+    .admin-complaint-card {
+      width: 45%; /* 2 cards per row on smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .admin-cards-container {
+      justify-content: flex-start; /* Ensure cards start from the left */
+    }
+    .admin-complaint-card {
+      width: 100%; /* 1 card per row on mobile */
+    }
   }
   
   .complaint-image {
@@ -117,5 +136,31 @@
     text-align: center;
     font-size: 1.2rem;
     color: #888;
+  }
+  
+  .filter-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 10px;
+    font-size: 16px;
+  }
+  
+  .filter-container label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .filter-container input[type="checkbox"] {
+    margin-right: 5px;
+    transform: scale(1.2);
+  }
+  
+  .admin-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
   }
   

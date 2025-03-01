@@ -7,6 +7,7 @@ const ComplaintSchema = new mongoose.Schema({
   priority: { type: String, required: true },
   status: { type: String, default: "pending" },
   imagePath: { type: String }, // ✅ Ensure this field exists
-}, { timestamps: true });
+  address:{type:String,required:true}}, { timestamps: true }
+);
 
 module.exports = mongoose.model("Complaint", ComplaintSchema);

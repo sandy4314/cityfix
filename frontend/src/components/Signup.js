@@ -10,7 +10,6 @@ const Signup = ({ setToken }) => {
     email: "",
     password: "",
     mobileNumber: "",
-    address: "",
   });
 
   const [message, setMessage] = useState("");
@@ -70,14 +69,6 @@ const Signup = ({ setToken }) => {
           name="mobileNumber"
           className="input-field"
           placeholder="Mobile Number"
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="address"
-          className="input-field"
-          placeholder="Address"
           onChange={handleChange}
           required
         />

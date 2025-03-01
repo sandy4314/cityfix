@@ -21,7 +21,7 @@ const createComplaint = async (req, res) => {
     console.log("🔍 Incoming Complaint Request:", req.body);
     console.log("📸 Uploaded File:", req.file);
 
-    const { issueType, description, priority } = req.body;
+    const { issueType, description, priority,address } = req.body;
     const imagePath = req.file ? `/uploads/${req.file.filename}` : null; // Save relative path
 
     if (!req.user || !req.user.userId) {
@@ -38,6 +38,7 @@ const createComplaint = async (req, res) => {
       issueType,
       description,
       priority,
+      address,
       imagePath, // ✅ Save the image path
     });
 

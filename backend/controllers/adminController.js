@@ -100,4 +100,4 @@ const sendEmail = (userEmail, status) => {
   });
 };
 
-module.exports = { adminLogin, getAllComplaints, updateComplaintStatus };
+module.exports = { adminLogin, getAllComplaints, updateComplaintStatus,sendEmail};
