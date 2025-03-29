@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // Add Link
 import api from "../api";
-import "./Login.css"; // Import CSS
+import "./Login.css";
 
 const Login = ({ setToken }) => {
   const [username, setUsername] = useState("");
@@ -13,9 +13,7 @@ const Login = ({ setToken }) => {
     e.preventDefault();
     try {
       const res = await api.post("/auth/login", { username, password });
-
       localStorage.setItem("token", res.data.token);
-
       if (res.data.role === "admin") {
         localStorage.setItem("role", "admin");
         navigate("/admin-dashboard");
@@ -23,7 +21,6 @@ const Login = ({ setToken }) => {
         localStorage.setItem("role", "user");
         navigate("/dashboard");
       }
-
       setToken(res.data.token);
     } catch (err) {
       setMessage(err.response?.data?.message || "Login failed.");
@@ -55,9 +52,9 @@ const Login = ({ setToken }) => {
         <button className="login-button" type="submit">
           Login
         </button>
-        <a href="/signup" className="signup-link">
+        <Link to="/signup" className="signup-link">
           New User? Sign Up
-        </a>
+        </Link>
       </form>
     </div>
   );

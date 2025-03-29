@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api";
-
 import "./Signup.css";
 
 const Signup = ({ setToken }) => {
@@ -32,7 +31,7 @@ const Signup = ({ setToken }) => {
   };
 
   const handleLoginRedirect = () => {
-    navigate("/"); // Redirect to login page
+    navigate("/login"); // Redirect to login page instead of "/"
   };
 
   return (
